@@ -231,17 +231,19 @@ import asyncio
 import os
 from dotenv import load_dotenv
 import logging
-from Config import TOKEN
-from handlers import router
+from database.handlers import router
 from aiogram import Bot, Dispatcher
 from database.models import async_main
+env_path = r"C:\Users\Almaz\PycharmProjects\PythonProject3\.venv\.env"
+load_dotenv(env_path)
 
-bot = Bot(token=TOKEN)
+bot = Bot(token=os.getenv("TOKEN"))
+
 dp = Dispatcher()
 
 async def main():
     await async_main()
-    bot = Bot(token=TOKEN)
+    bot = Bot(token=os.getenv("TOKEN"))
     dp = Dispatcher()
     dp.include_router(router)
     await dp.start_polling(bot)
